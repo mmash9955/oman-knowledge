@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>عُمان المعرفة - رؤية عُمان 2040</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Tajawal', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+  <!-- Header / Navigation -->
+  <header class="bg-white shadow-sm border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="bg-emerald-600 text-white p-2 rounded-lg font-bold text-xl">ع</div>
+        <div>
+          <h1 class="text-xl font-bold text-slate-900">عُمان المعرفة</h1>
+          <p class="text-xs text-emerald-600 font-medium">رؤية عُمان 2040 | ادرس بذكاء... وبأقل جهد!</p>
+        </div>
+      </div>
+      <div id="user-status" class="hidden text-sm font-medium text-slate-600">
+        أهلاً بك، <span id="student-name" class="text-emerald-700 font-bold"></span> 
+        (<span id="student-grade" class="text-slate-500"></span>)
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+    
+    <!-- 1. Landing & Login Step -->
+    <section id="login-section" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md border border-slate-100 text-center space-y-6">
+      <h2 class="text-2xl font-bold text-slate-900">مرحباً بك في منصة عُمان المعرفة 🎓</h2>
+      <p class="text-sm text-slate-600">مساعدك الدراسي الذكي المصمم خصيصاً لمناهج سلطنة عمان</p>
+      
+      <div class="space-y-4 text-right">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">اسم الطالب:</label>
+          <input type="text" id="input-name" placeholder="أدخل اسمك الكريم" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">الصف الدراسي:</label>
+          <select id="input-grade" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+            <option value="الصف الثاني عشر">الصف الثاني عشر (الدبلوم العام)</option>
+            <option value="الصف الحادي عشر">الصف الحادي عشر</option>
+            <option value="الصف العاشر">الصف العاشر</option>
+          </select>
+        </div>
+
+        <button onclick="loginStudent()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow transition flex items-center justify-center gap-2">
+          <span>الدخول بحساب Google</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. Dashboard Section (Hidden by Default) -->
+    <section id="dashboard-section" class="hidden space-y-8">
+      
+      <div class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-6 rounded-2xl shadow-md">
+        <h2 class="text-2xl font-bold mb-2">لوحة التحكم الدراسية 🚀</h2>
+        <p class="text-emerald-100 text-sm">اختر إحدى الميزات الذكية للبدء في المذاكرة وتحليل دروسك وفق المنهج العماني:</p>
+      </div>
+
+      <!-- Feature Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Card 1 -->
+        <div onclick="openFeature('مساعد جيميناي للدراسة')" class="bg-white p-6 rounded-xl border border-slate-200 hover:border-emerald-500 hover:shadow-lg transition cursor-pointer space-y-3">
+          <div class="text-3xl">🤖</div>
+          <h3 class="font-bold text-lg text-slate-800">مساعد جيميناي</h3>
+          <p class="text-xs text-slate-500">إجابات واستفسارات متوافقة مع المنهج العماني.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div onclick="openFeature('تلخيص الدروس')" class="bg-white p-6 rounded-xl border border-slate-200 hover:border-emerald-500 hover:shadow-lg transition cursor-pointer space-y-3">
+          <div class="text-3xl">📝</div>
+          <h3 class="font-bold text-lg text-slate-800">تلخيص الدروس</h3>
+          <p class="text-xs text-slate-500">استخراج النقاط المهمة والملخصات من النصوص.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div onclick="openFeature('حل المعادلات الرياضية')" class="bg-white p-6 rounded-xl border border-slate-200 hover:border-emerald-500 hover:shadow-lg transition cursor-pointer space-y-3">
+          <div class="text-3xl">📐</div>
+          <h3 class="font-bold text-lg text-slate-800">حل المعادلات</h3>
+          <p class="text-xs text-slate-500">شرح خطوات حل مسائل الرياضيات والفيزياء.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div onclick="openFeature('إنشاء أسئلة من المرفقات')" class="bg-white p-6 rounded-xl border border-slate-200 hover:border-emerald-500 hover:shadow-lg transition cursor-pointer space-y-3">
+          <div class="text-3xl">📂</div>
+          <h3 class="font-bold text-lg text-slate-800">توليد الأسئلة</h3>
+          <p class="text-xs text-slate-500">ارفق ملف PDF أو صورة لتوليد اختبارات ومراجعات.</p>
+        </div>
+
+      </div>
+
+      <!-- Interactive Output / Workspace Area -->
+      <div id="workspace-area" class="bg-white p-6 rounded-2xl border border-slate-200 min-h-[300px]">
+        <h3 id="active-feature-title" class="font-bold text-slate-800 mb-4 border-b pb-2">اختر ميزة من الأعلى للبدء</h3>
+        <textarea id="user-input" class="w-full p-4 border rounded-lg mb-4 h-32 focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="اكتب سؤالك أو ألصق نص الدرس هنا..."></textarea>
+        <button onclick="processAIRequest()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 rounded-lg">إرسال للذكاء الاصطناعي</button>
+        
+        <div id="ai-response" class="mt-6 p-4 bg-slate-50 border rounded-lg text-slate-700 hidden"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    منصة عُمان المعرفة © 2026 - داعمة لرؤية عُمان 2040
+  </footer>
+
+  <script>
+    let currentStudent = { name: '', grade: '' };
+    let selectedFeature = 'مساعد جيميناي للدراسة';
+
+    function loginStudent() {
+      const name = document.getElementById('input-name').value.trim() || 'عبدالعزيز';
+      const grade = document.getElementById('input-grade').value;
+
+      currentStudent.name = name;
+      currentStudent.grade = grade;
+
+      document.getElementById('student-name').innerText = name;
+      document.getElementById('student-grade').innerText = grade;
+      document.getElementById('user-status').classList.remove('hidden');
+
+      document.getElementById('login-section').classList.add('hidden');
+      document.getElementById('dashboard-section').classList.remove('hidden');
+    }
+
+    function openFeature(featureName) {
+      selectedFeature = featureName;
+      document.getElementById('active-feature-title').innerText = 'الميزة الحالية: ' + featureName;
+    }
+
+    function processAIRequest() {
+      const input = document.getElementById('user-input').value;
+      if(!input) return alert('يرجى كتابة نص أو سؤال أولاً!');
+      
+      const responseBox = document.getElementById('ai-response');
+      responseBox.classList.remove('hidden');
+      responseBox.innerText = `جاري معالجة طلبك عبر Gemini API استناداً إلى (${currentStudent.grade}) ومناهج سلطنة عمان...`;
+    }
+  </script>
+</body>
+</html>
